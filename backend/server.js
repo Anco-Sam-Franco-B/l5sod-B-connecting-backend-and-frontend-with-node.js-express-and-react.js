@@ -12,13 +12,11 @@ app.use(cors())
 
 //API ROUTES
 app.get("/users", (req, res)=>{
-    con.query('SELECT * FROM users', (error, data)=>{
-        if(error){
-            return res.status(500).json({
+    con.query('SELECT * FROM uses', (err, data)=>{
+        if(err) return res.status(500).json({
                 message: 'Internal Server Error',
-                errorMessage: error.message
+                errorMessage: err.message
             })
-        }
         return res.status(200).json({
             message: 'User Fetched',
             result: data
@@ -28,7 +26,7 @@ app.get("/users", (req, res)=>{
 
 app.post('/create-user', (req, res)=>{
     const { fname, lname, email, phone } = req.body
-    if(!fname && !lname && !email && !phone){
+    if(!fname || !lname || !email || !phone){
         return res.status(400).json({
             message: 'All inputs are required!'
         })
