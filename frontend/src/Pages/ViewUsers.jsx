@@ -11,9 +11,10 @@ function ViewUsers() {
             setUsers(res.data.result)
         })
         .catch(err=>{
-            console.log(err.response.data.errorMessage)
+            console.log(err.response)
+            alert("Failed to fetch users")
         })
-    }, [])
+    }, [users])
 
   return (
     <div>
@@ -31,7 +32,19 @@ function ViewUsers() {
                         <th>Phone Number</th>
                     </tr>
                 </thead>
-                
+                <tbody>
+                    {
+                        users.map((data, index)=>(
+                           <tr key={index}>
+                                <td>{index +1}</td>
+                                <td>{data.fname}</td>
+                                <td>{data.lname}</td>
+                                <td>{data.email}</td>
+                                <td>{data.phone}</td>
+                           </tr> 
+                        ))
+                    }
+                </tbody>
             </table>
         </div>
     </div>

@@ -12,7 +12,7 @@ app.use(cors())
 
 //API ROUTES
 app.get("/users", (req, res)=>{
-    con.query('SELECT * FROM uses', (err, data)=>{
+    con.query('SELECT * FROM users', (err, data)=>{
         if(err) return res.status(500).json({
                 message: 'Internal Server Error',
                 errorMessage: err.message
