@@ -34,6 +34,7 @@ app.post('/create-user', (req, res)=>{
     //insert new user to database table
     con.query(`INSERT INTO users(fname, lname, email, phone) VALUES('${fname}', '${lname}', '${email}', '${phone}')`, (err)=>{
         if(err){
+            console.log(err)
             return res.status(500).json({
                 message: 'Internal Server Error',
                 errorMessage: err.message
