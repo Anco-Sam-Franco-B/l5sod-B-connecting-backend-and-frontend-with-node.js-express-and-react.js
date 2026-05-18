@@ -47,6 +47,22 @@ app.post('/create-user', (req, res)=>{
 })
 
 
+//delete user by ID
+app.delete('/delete/:id', (req, res)=>{
+    const { id } =req.params
+    con.query(`DELETE FROM users WHERE id='${id}'`,(err)=>{
+        if(err){ //QueryError == true || null == false
+            return res.status(500).json({
+                message: 'Internal Server Error',
+                errorMessage: err.message
+            })
+        }
+        return res.status(200).json({
+            message: 'User records deleted!'
+        })
+    })
+})
+
 //starting server
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`)

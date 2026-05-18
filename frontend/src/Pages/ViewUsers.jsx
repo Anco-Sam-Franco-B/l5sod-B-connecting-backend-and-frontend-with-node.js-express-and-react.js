@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 function ViewUsers() {
 
@@ -16,6 +17,18 @@ function ViewUsers() {
         })
     }, [users])
 
+    const handleDelete=(id)=>{
+            axios.delete(`http://localhost:5000/delete/${id}`)
+            .then(res=>{
+                alert(res.data.message)
+                setUsers(users.filter(user=> user.id !== id))
+            })
+            .catch(err=>{
+                console.log(err)
+                alert(err.response.data.errorMessage || err.response.data.message)
+            })
+    }
+
   return (
     <div>
         <div className="">
@@ -30,6 +43,7 @@ function ViewUsers() {
                         <th>Last Name</th>
                         <th>Email Address</th>
                         <th>Phone Number</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +55,7 @@ function ViewUsers() {
                                 <td>{data.lname}</td>
                                 <td>{data.email}</td>
                                 <td>{data.phone}</td>
+                                <td><button onClick={()=>handleDelete(data.id)}>Delete</button></td>
                            </tr> 
                         ))
                     }
